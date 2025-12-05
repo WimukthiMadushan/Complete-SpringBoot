@@ -2,12 +2,19 @@ package com.wimukthi.store.entities;
 
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "profiles")
+@ToString
+@Getter
+@Setter
+@Builder
 public class Profile {
 
     @Id
@@ -26,4 +33,10 @@ public class Profile {
 
     @Column(name = "loyalty_points")
     private Integer loyalty_points;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    @MapsId
+    @ToString.Exclude
+    private User user;
 }

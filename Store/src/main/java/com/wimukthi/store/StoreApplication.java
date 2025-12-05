@@ -1,6 +1,7 @@
 package com.wimukthi.store;
 
 import com.wimukthi.store.entities.Address;
+import com.wimukthi.store.entities.Profile;
 import com.wimukthi.store.entities.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +18,13 @@ public class StoreApplication {
                 .password("Wimukthi")
                 .build();
 
-        user.addTag("wimukthi");
+        var profile = Profile.builder()
+                        .bio("bio")
+                                .build();
+        user.setProfile(profile);
+        profile.setUser(user);
+
+
         System.out.println(user);
     }
 
