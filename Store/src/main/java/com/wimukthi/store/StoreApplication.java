@@ -17,14 +17,7 @@ public class StoreApplication {
                 .password("Wimukthi")
                 .build();
 
-        var address = Address.builder()
-                .street("Street")
-                .city("City")
-                .state("State")
-                .zip("Zip")
-                .build();
-
-        user.addAddress(address);
+        user.addTag("wimukthi");
         System.out.println(user);
     }
 
