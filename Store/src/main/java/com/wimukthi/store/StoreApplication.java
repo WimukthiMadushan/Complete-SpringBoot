@@ -1,5 +1,6 @@
 package com.wimukthi.store;
 
+import com.wimukthi.store.entities.Address;
 import com.wimukthi.store.entities.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,16 @@ public class StoreApplication {
                 .password("Wimukthi")
                 .build();
 
+        var address = Address.builder()
+                .street("Street")
+                .city("City")
+                .state("State")
+                .zip("Zip")
+                .build();
+
+        user.addAddress(address);
+        System.out.println(user);
     }
+
 
 }
