@@ -1,6 +1,7 @@
 package com.codewithmosh.store.controllers;
 
 import com.codewithmosh.store.dto.RegisterUserRequest;
+import com.codewithmosh.store.dto.UpdateUserRequest;
 import com.codewithmosh.store.dto.UserDto;
 import com.codewithmosh.store.mappers.UserMapper;
 import com.codewithmosh.store.repositories.UserRepository;
@@ -53,5 +54,17 @@ public class UserController {
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(userDto);
 
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable long id, @RequestBody UpdateUserRequest request){
+        var user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userMapper.update(request,user);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(userMapper.userToUserDto(user));
     }
 }
