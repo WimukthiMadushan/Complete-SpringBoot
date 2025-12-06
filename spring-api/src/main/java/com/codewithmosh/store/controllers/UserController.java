@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -47,10 +48,15 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
     @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(
+    public ResponseEntity<?> registerUser(
             @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder
     ) {
+        if(userRepository.findByEmail(request.getEmail())){
+            return ResponseEntity.badRequest().body(
+                    Map.of("Email", "Email already exists")
+            );
+        }
         var user =  userMapper.toEntity(request);
         userRepository.save(user);
         var userDto = userMapper.userToUserDto(user);
