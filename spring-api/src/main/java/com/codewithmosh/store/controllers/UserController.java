@@ -58,6 +58,7 @@ public class UserController {
             );
         }
         var user =  userMapper.toEntity(request);
+
         userRepository.save(user);
         var userDto = userMapper.userToUserDto(user);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
