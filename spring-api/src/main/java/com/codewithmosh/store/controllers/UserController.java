@@ -54,7 +54,7 @@ public class UserController {
             @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder
     ) {
-        if(userRepository.findByEmail(request.getEmail())){
+        if(userRepository.existsByEmail(request.getEmail())){
             return ResponseEntity.badRequest().body(
                     Map.of("Email", "Email already exists")
             );
